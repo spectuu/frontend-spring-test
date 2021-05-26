@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <title>Administración de Usuarios</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="lib.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+  </head>
+  <body>
+    
+     
+    <label for="fname">producto a cambiar:</label>
+    <input type="text" id="iproductChange" name="fname"><br><br>
+    <label for="fname">Nombre del producto:</label>
+    <input type="text" id="iproductName" name="fname"><br><br>
+    <label for="lname">Tipo del producto:</label>
+    <input type="text" id="itypeOfProduct" name="fname"><br><br>
+    <labelfor="lname">Cantidad disponible:</label>
+    <input type="number" id="iavailableCuantity" name="lname"><br><br
+    <labelfor="lname">Precio:</label>
+    <input type="number" id="iprice" name="lname"><br><br>
+    <button id="submit">Actualizar</button>
+
+    <table id="example" class="display" cellspacing="0" width="100%">
+      <thead>
+          <tr>
+              <th>ID</th>
+              <th>Product Name</th>
+              <th>Type Of Product</th>
+              <th>Available Quantity</th>
+              <th>Price</th>
+          </tr>
+      </thead>
+    </table>
+
+  </body>
+  <script>
+
+    $("#submit").click(function() {
+      sPatch(
+        "http://localhost:8080/api/v1/products/updateProduct",
+        {
+          productChange: $("#iproductChange").val(),
+          productName: $("#iproductName").val(),
+          typeOfProduct: $("#itypeOfProduct").val(),
+          availableQuantity: $("#iavailableCuantity").val(),
+          price: $("#iprice").val()
+
+        },
+        function(data) {
+          alert(data.message);
+          console.log(data);
+        }
+      )
+    });
+
+    $(document).ready(function (){
+      sGet(
+        "http://localhost:8080/api/v1/products/find/allProducts",
+        function(data) {
+          //alert(data.message);
+          console.log(data.data);
+          var table = $('#example').DataTable({
+            data: data.data,
+            "columns" : [
+                { "data" : "id" },
+                { "data" : "productName" },
+                { "data" : "typeOfProduct" },
+                { "data" : "price" },
+                { "data" : "availableQuantity" }
+            ]
+          });
+        }
+      )
+    });
+
+  </script>
+</html>

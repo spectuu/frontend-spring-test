@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>Administración de Usuarios</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="lib.js"></script>
+  </head>
+  <body>
+    
+    <label for="fname">Nombre del producto:</label>
+    <input type="text" id="iproductName" name="fname"><br><br>
+    <button id="submit">Delete product</button>
+  </body>
+  <script>
+
+    $("#submit").click(function() {
+      sDelete(
+        "http://localhost:8080/api/v1/products/deleteProduct",
+        {
+          productName: $("#iproductName").val(),
+        },
+        function(data) {
+          alert(data.message);
+          console.log(data);
+        }
+      )
+    });
+
+  </script>
+</html>

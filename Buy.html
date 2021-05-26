@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>Administración de Usuarios</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="lib.js"></script>
+  </head>
+  <body>
+    
+    <label for="fname">Email:</label>
+    <input type="text" id="iemail" name="fname"><br><br>
+    <label for="lname">Nombre del producto:</label>
+    <input type="text" id="iProduct" name="lname"><br><br>
+    <button id="submit">Buy Product</button>
+
+  </body>
+  <script>
+
+    $("#submit").click(function() {
+      sPost(
+        "http://localhost:8080/api/v1/products/buy",
+        {
+          email: $("#iemail").val(),
+          productName: $("#iProduct").val()
+        },
+        function(data) {
+          alert(data.message);
+          console.log(data);
+        }
+      )
+    });
+
+  </script>
+</html>

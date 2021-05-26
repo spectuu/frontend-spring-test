@@ -38,3 +38,21 @@ function sDelete(url, json, callback){
   });
 }
 
+function sPatch(url, json, callback){
+
+    $.ajax({
+          url: url,
+          type: 'patch',
+          dataType: 'json',
+          contentType: 'application/json',
+          success: function (data){
+              callback(data);
+          },
+  
+          data: JSON.stringify(json)
+  
+    });
+  }
+  
+  
+
