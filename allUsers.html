@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <title>Administración de Usuarios</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="lib.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+  </head>
+  <body>
+    <table id="example" class="display" cellspacing="0" width="100%">
+      <thead>
+          <tr>
+              <th>Email</th>
+              <th>Password</th>
+              <th>Coins</th>
+          </tr>
+      </thead>
+    </table>
+
+  </body>
+  <script>
+
+    $(document).ready(function (){
+      sGet(
+        "http://localhost:8080/api/v1/users/allUsers",
+        function(data) {
+          //alert(data.message);
+          console.log(data.data);
+          var table = $('#example').DataTable({
+            data: data.data,
+            "columns" : [
+                { "data" : "email" },
+                { "data" : "password" },
+                { "data" : "coins" },
+            ]
+          });
+        }
+      )
+    });
+
+  </script>
+</html>

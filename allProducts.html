@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <title>Administración de Usuarios</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="lib.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+  </head>
+  <body>
+    <table id="example" class="display" cellspacing="0" width="100%">
+      <thead>
+          <tr>
+              <th>ID</th>
+              <th>Product Name</th>
+              <th>Type Of Product</th>
+              <th>Available Quantity</th>
+              <th>Price</th>
+          </tr>
+      </thead>
+    </table>
+
+  </body>
+  <script>
+
+    $(document).ready(function (){
+      sGet(
+        "http://localhost:8080/api/v1/products/find/allProducts",
+        function(data) {
+          //alert(data.message);
+          console.log(data.data);
+          var table = $('#example').DataTable({
+            data: data.data,
+            "columns" : [
+                { "data" : "id" },
+                { "data" : "productName" },
+                { "data" : "typeOfProduct" },
+                { "data" : "availableQuantity" },
+                { "data" : "price" },
+            ]
+          });
+        }
+      )
+    });
+
+  </script>
+</html>
